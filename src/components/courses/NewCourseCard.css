@@ -1,0 +1,44 @@
+.ribbon {
+
+  /* Ensures the main div is positioned correctly */
+  position: relative;
+  overflow: hidden;
+  border: 20px solid rgb(206, 55, 143); /* All borders set */
+  border-right: 0; /* Remove left border */
+  border-left: 20px solid transparent; /* Right transparent */
+  width: 80px;
+}
+
+.ribbon2 {
+
+    /* Ensures the main div is positioned correctly */
+    position: relative;
+    overflow: hidden;
+    height: 0px;
+    width: 100px;
+    border: 0px solid transparent;
+    border-top: 40px solid rgb(70, 101, 202);
+    border-right: 30px solid transparent;
+    /*
+    border-top: 20px solid rgb(206, 55, 143); 
+    border-right: 0; 
+    border-left: 20px solid transparent; 
+    width: 80px; */
+  }
+
+  .packageRibbon {
+
+    /* Ensures the main div is positioned correctly */
+    position: relative;
+    overflow: hidden;
+    height: 0px;
+    width: 100px;
+    border: 0px solid transparent;
+    border-top: 40px solid rgb(54, 202, 116);
+    border-right: 30px solid transparent;
+    /*
+    border-top: 20px solid rgb(206, 55, 143); 
+    border-right: 0; 
+    border-left: 20px solid transparent; 
+    width: 80px; */
+  }

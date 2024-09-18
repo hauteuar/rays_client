@@ -1,0 +1,127 @@
+/* src/pages/login/Login.css */
+
+.login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(rgba(9, 23, 99, 0.8), rgba(9, 23, 99, 0.8)),
+      url('/images/login-bg.jfif') center/cover no-repeat;
+  }
+  
+  .login-row {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 30px;
+    align-items: center;
+  }
+  
+  .login-left {
+    width: 50%;
+  }
+  
+  .login-right {
+    width: 50%;
+  }
+  
+  .login-left h1 {
+    text-transform: none;
+    margin-bottom: 20px;
+  }
+  
+  .login-card {
+    padding: 30px;
+    border-radius: 30px;
+    background-color: var(--color1);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    color: var(--color3);
+    margin: 30px 0;
+  }
+  
+  .input-field {
+    position: relative;
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  form input {
+    border: none;
+    border-bottom: 1px solid var(--color2);
+    padding: 5px 0;
+    outline: none;
+    width: 100%;
+  }
+  
+  form label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  form input:focus ~ label,
+  form input:valid ~ label {
+    margin-top: -15px;
+    font-size: 12px;
+  }
+  
+  .text-danger {
+    color: var(--color2);
+  }
+  
+  .text-dark {
+    color: var(--color3);
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  .w-100 {
+    width: 100%;
+  }
+  
+  .w-50 {
+    width: 50%;
+  }
+  
+  .button-elite2 {
+    background: var(--color2);
+    padding: 10px 16px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    border: 1px solid var(--color2);
+    color: var(--color4);
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .button-elite2:hover {
+    background: linear-gradient(90deg, var(--color1), var(--color2));
+    background-size: 400% 400%;
+    animation: gradient 3s ease;
+    color: var(--color3);
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
