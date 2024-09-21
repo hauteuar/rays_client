@@ -54,7 +54,7 @@ const Login = () => {
         </div>
         <div className="login-right">
           <div className="login-card">
-            <img src="/images/logo2.png" alt="logo" style={{ margin: '0 auto', display: 'flex', width: '120px' }} />
+            <img src="/logo2.png" alt="logo" style={{ margin: '0 auto', display: 'flex', width: '120px' }} />
             <form onSubmit={handleLogin}>
               <div className="input-field">
                 <input
@@ -93,10 +93,10 @@ const Login = () => {
               <h6 className="text-dark">Or</h6>
               <div className="login-card-bottom-icons">
                 <a href="/auth/google">
-                  <img src="/images/google-icon.png" alt="google" />
+                  <img src="/google-icon.png" alt="google" />
                 </a>
                 <a href="/auth/facebook">
-                  <img src="/images/facebook-icon.png" alt="facebook" />
+                  <img src="/facebook-icon.png" alt="facebook" />
                 </a>
               </div>
             </div>

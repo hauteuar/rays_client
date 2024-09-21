@@ -26,6 +26,7 @@ export function Sidebar() {
     try {
       // Retrieve token from local storage
       const token = localStorage.getItem("booking-token");
+      console.log(token); 
       if (!token) {
         console.error("No token found");
         return;
@@ -41,6 +42,15 @@ export function Sidebar() {
           },
         }
       );
+      console.log(response);
+      // Extract organization_id from the response and store it in local storage
+      const organizationId = response.data[0]?.organization_id; // Assuming the first object has the organization_id
+      console.log(organizationId);
+      if (organizationId) {
+        localStorage.setItem("organization-id", organizationId); // Store organization_id in local storage
+      } else {
+        localStorage.setItem("organization-id", 5); 
+      }
 
       // Save profile data to local storage
       localStorage.setItem("profile", JSON.stringify(response.data));
@@ -99,7 +109,7 @@ export function Sidebar() {
               <ListItemPrefix>
                 <BookOpenIcon className="h-5 w-5 mr-3" />
               </ListItemPrefix>
-              <span className="text-xl">Course</span>
+              <span className="text-xl">Courses</span>
             </ListItem>
             <hr />
             <ListItem className="hover:bg-slate-50" onClick={handleNavigate("/task")}>

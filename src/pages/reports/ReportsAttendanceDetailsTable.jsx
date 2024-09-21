@@ -7,7 +7,7 @@ import {
     TableContainer,
 
   } from "@chakra-ui/react";
-import ReportsAttendanceDetailsTableRow from "./ReportsAttendanceDetailsTableRow";
+import ReportsAttendanceDetailsTableRow from "./ReportsAttendanceDetails";
 export function ReportsAttendanceDetailsTable(){
   const classes = [{date: "15-02-2024", status: "Present"},
     {date: "15-02-2024", status: "Present"},

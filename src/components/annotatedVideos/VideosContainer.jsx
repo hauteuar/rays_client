@@ -1,26 +1,13 @@
 import VideoCard from "./VideoCard";
 
-export function VideosContainer() {
-    return (
-        <div className="flex flex-wrap gap-2">
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
-        </div>
-    )
+export function VideosContainer({ videos }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {videos.map((video, index) => (
+        <VideoCard key={index} video={video} />
+      ))}
+    </div>
+  );
 }
 
 export default VideosContainer;

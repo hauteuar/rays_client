@@ -8,48 +8,38 @@ export function Task() {
     total: 0,
     pending: 0,
     completed: 0,
-    shared: 0
+    shared: 0,
   });
 
   const fetchTaskDetails = async () => {
     try {
-      // Get token from local storage
-      const token = localStorage.getItem('booking-token');
-      
+      const token = localStorage.getItem("booking-token");
       const response = await axios.post(
-        'https://hwzthat.com/api/view_assignment_api',
-        {
-          inputs: {
-            id: '35'  // Replace with dynamic ID if needed
-          }
-        },
+        "https://hwzthat.com/api/assignments_data",
+        {},
         {
           headers: {
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
       );
-      
-      // Assume the response data is in this structure
+
       const data = response.data;
 
-      // Update the state with API response data
       setTaskDetails({
         total: data.totalAssignments || 0,
         pending: data.pendingAssignments || 0,
         completed: data.completedAssignments || 0,
-        shared: data.sharedAssignments || 0
+        shared: data.sharedAssignments || 0,
       });
-
     } catch (error) {
       console.error("Error fetching task details:", error);
     }
   };
 
   useEffect(() => {
-    // Fetch the task details when the component mounts
     fetchTaskDetails();
   }, []);
 
@@ -68,10 +58,7 @@ export function Task() {
               borderColor="blue.300"
               borderRadius="md"
               m="2"
-              _focus={{
-                outline: "none",
-                boxShadow: "none",
-              }}
+              _focus={{ outline: "none", boxShadow: "none" }}
             >
               <div className="p-4 text-left flex flex-col items-start w-48 rounded-lg">
                 <span>Total assignment</span>
@@ -86,10 +73,7 @@ export function Task() {
               borderColor="blue.300"
               borderRadius="md"
               m="2"
-              _focus={{
-                outline: "none",
-                boxShadow: "none",
-              }}
+              _focus={{ outline: "none", boxShadow: "none" }}
             >
               <div className="p-4 text-left flex flex-col items-start w-48 rounded-lg">
                 <span>Pending</span>
@@ -104,10 +88,7 @@ export function Task() {
               borderColor="blue.300"
               borderRadius="md"
               m="2"
-              _focus={{
-                outline: "none",
-                boxShadow: "none",
-              }}
+              _focus={{ outline: "none", boxShadow: "none" }}
             >
               <div className="p-4 text-left flex flex-col items-start w-48 rounded-lg">
                 <span>Completed</span>
@@ -122,10 +103,7 @@ export function Task() {
               borderColor="blue.300"
               borderRadius="md"
               m="2"
-              _focus={{
-                outline: "none",
-                boxShadow: "none",
-              }}
+              _focus={{ outline: "none", boxShadow: "none" }}
             >
               <div className="p-4 text-left flex flex-col items-start w-48 rounded-lg">
                 <span>Shared</span>

@@ -7,30 +7,26 @@ import {
   Stack,
   Heading,
   Text,
-  Divider,
-} from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-
-
+} from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
-export function CourseCard({courseName, duration, batches, }) {
-
+export function CourseCard({ courseName, duration, batches }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate('/courses/courseDetails', {
-      state: { courseName, duration, batches }, // Passing data as state
+      state: { courseName, duration, batches },
     });
-  }
+  };
 
   return (
-    <Card maxW="sm" boxShadow='xl' cursor="pointer" onClick={handleClick}>
+    <Card maxW="sm" boxShadow="xl" cursor="pointer" onClick={handleClick}>
       <CardBody p={0}>
         <Image
           className="w-full"
           src="/src/assets/sports/sport1.jpg"
-          alt="Green double couch with wooden legs"
+          alt="Course Image"
           borderRadius="lg"
           m={0}
         />
@@ -46,9 +42,9 @@ export function CourseCard({courseName, duration, batches, }) {
 
       <CardFooter p={0}>
         <div className="ml-2 mt-2">
-          <a>
-            <Text color="blue.400" _hover={{ color: "blue.200", cursor: "pointer" }}>View course details</Text>
-          </a>
+          <Text color="blue.400" _hover={{ color: "blue.200", cursor: "pointer" }}>
+            View course details
+          </Text>
         </div>
       </CardFooter>
     </Card>

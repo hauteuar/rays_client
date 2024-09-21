@@ -1,126 +1,106 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import CourseCard from "./CourseCard";
-import NewCourseCard from "./NewCourseCard";
-import NewPackageCard from "./NewPackageCard";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import CourseCard from './CourseCard';
+import NewCourseCard from './NewCourseCard';
+import NewPackageCard from './NewPackageCard';
 
 export function CourseListView() {
   const [courses, setCourses] = useState([]);
   const [newCourses, setNewCourses] = useState([]);
-  const [newPackages, setNewPackages] = useState([]);
-  const [selectedCourseDetails, setSelectedCourseDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Function to fetch the course list from the API
-  const fetchCourseList = async () => {
+  // Fetch ongoing courses
+  const fetchOngoingCourses = async () => {
     try {
-      const token = localStorage.getItem("booking-token");
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
-
-      const response = await axios.post(
-        "https://hwzthat.com/api/get-course-list",
-        {}, // Add necessary body params if required
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await axios.get('https://hwzthat.com/api/get-course-list', {}, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         }
-      );
-
-      // Assuming the response structure contains the course list, new courses, and new packages
-      setCourses(response.data.courses || []);
-      setNewCourses(response.data.newCourses || []);
-      setNewPackages(response.data.newPackages || []);
+      });
+      setCourses(response.data.course_list || []);
     } catch (error) {
-      console.error("Error fetching course list:", error);
+      console.error("Error fetching ongoing courses:", error);
+      setError("Error fetching ongoing courses");
     }
   };
 
-  // Function to fetch course details when a course is clicked
-  const fetchCourseDetails = async (courseId) => {
+  // Fetch new courses
+  const fetchNewCourses = async () => {
     try {
-      const token = localStorage.getItem("booking-token");
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
-
+      const token = localStorage.getItem('booking-token'); // Assuming you're using a token from localStorage
       const response = await axios.post(
-        "https://hwzthat.com/api/get_course_details_by_id",
-        { course_id: courseId }, // The body requires course_id
+        'https://hwzthat.com/api/get-course-list',
+        {},
         {
           headers: {
-            Accept: "application/json",
             Authorization: `Bearer ${token}`,
-          },
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }
         }
       );
-
-      // Set the selected course details
-      setSelectedCourseDetails(response.data);
+      setNewCourses(response.data.course_list || []);
     } catch (error) {
-      console.error("Error fetching course details:", error);
+      console.error("Error fetching new courses:", error);
+      setError("Error fetching new courses");
     }
   };
 
-  // Fetch course list when the component mounts
   useEffect(() => {
-    fetchCourseList();
+    // Fetch both courses and new courses in parallel
+    const fetchCoursesData = async () => {
+      setLoading(true);
+      await Promise.all([fetchOngoingCourses(), fetchNewCourses()]);
+      setLoading(false);
+    };
+    fetchCoursesData();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div>
       <div className="flex gap-4">
-        {/* Render Courses */}
-        {courses.map((course, index) => (
+        {/* Render Ongoing Courses */}
+        {courses.length > 0 && courses.map((course, index) => (
           <CourseCard
             key={index}
-            courseName={course.title} // Assuming title is the name of the course
-            duration={course.duration}
-            batches={course.batches}
-            onClick={() => fetchCourseDetails(course.course_id)} // Fetch details on click
+            courseName={course.title}
+            duration={course.duration || 'N/A'} // Assuming duration is part of the data
+            batches={course.batches || []} // Adjust this according to your data structure
           />
         ))}
 
         {/* Render New Courses */}
-        {newCourses.map((course, index) => (
+        {newCourses.length > 0 && newCourses.map((course, index) => (
           <NewCourseCard
             key={index}
-            courseName={course.title} // Assuming title is the name of the new course
-            duration={course.duration}
-            batches={course.batches}
-            price={course.price}
-            onClick={() => fetchCourseDetails(course.course_id)} // Fetch details on click
+            courseName={course.title}
+            duration={course.duration || 'N/A'}
+            batches={course.batches || []}
+            price={course.price || 'N/A'}
           />
         ))}
 
-        {/* Render New Packages */}
-        {newPackages.map((p, index) => (
+        {/* Render New Packages - assuming the new packages are part of new courses */}
+        {newCourses.length > 0 && newCourses.map((p, index) => (
           <NewPackageCard
             key={index}
-            packageName={p.packageName}
-            numCourses={p.numCourses}
-            price={p.price}
-            originalPrice={p.originalPrice ? p.originalPrice : null}
-            onClick={() => fetchCourseDetails(p.packageId)} // Fetch details on click
+            packageName={p.packageName || 'Package'} // Assuming you have packageName in data
+            numCourses={p.numCourses || 0}
+            price={p.price || 'N/A'}
+            originalPrice={p.originalPrice || null}
           />
         ))}
       </div>
-
-      {/* Display Selected Course Details */}
-      {selectedCourseDetails && (
-        <div className="mt-6 p-4 bg-gray-100 rounded-lg">
-          <h2 className="text-2xl font-bold">{selectedCourseDetails.title}</h2>
-          <p>{selectedCourseDetails.description}</p>
-          <p><strong>Price:</strong> {selectedCourseDetails.price}</p>
-          <p><strong>Start Date:</strong> {selectedCourseDetails.start_date}</p>
-          <p><strong>End Date:</strong> {selectedCourseDetails.end_date}</p>
-          {/* Add more details as needed */}
-        </div>
-      )}
     </div>
   );
 }
